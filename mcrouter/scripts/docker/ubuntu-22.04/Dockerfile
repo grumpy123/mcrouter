@@ -13,18 +13,22 @@ ENV             MCROUTER_REPO           https://github.com/grumpy123/mcrouter.gi
 ENV             DEBIAN_FRONTEND         noninteractive
 ENV             DUMB_INIT               1.2.5
 
-RUN             apt-get update && apt-get install -y git sudo wget bash && \
-                # ubuntu:16.04 package distro does not have dumb-init
-                wget -O /tmp/dumb-init.deb "https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT}/dumb-init_${DUMB_INIT}_amd64.deb" && \
-                dpkg -i /tmp/dumb-init.deb && \
-                rm /tmp/dumb-init.deb && \
-                apt-get remove -y wget && \
-                mkdir -p $MCROUTER_DIR/repo && \
-                cd $MCROUTER_DIR/repo && git clone $MCROUTER_REPO && \
-                cd $MCROUTER_DIR/repo/mcrouter/mcrouter/scripts && \
-                git checkout $MCROUTER_BRANCH && \
-                ./install_ubuntu_22.04.sh $MCROUTER_DIR && \
-                rm -rf $MCROUTER_DIR/repo && \
+RUN             apt-get update && apt-get install -y git sudo wget bash
+RUN             wget -O /tmp/dumb-init.deb "https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT}/dumb-init_${DUMB_INIT}_amd64.deb"
+RUN             dpkg -i /tmp/dumb-init.deb
+RUN             rm /tmp/dumb-init.deb
+RUN             #apt-get remove -y wget \
+
+RUN             mkdir -p $MCROUTER_DIR/repo && \
+                cd $MCROUTER_DIR/repo && \
+                git clone $MCROUTER_REPO
+
+RUN             cd $MCROUTER_DIR/repo/mcrouter/mcrouter/scripts && \
+                git checkout $MCROUTER_BRANCH \
+
+RUN             $MCROUTER_DIR/repo/mcrouter/mcrouter/scripts/install_ubuntu_22.04.sh $MCROUTER_DIR \
+
+RUN             rm -rf $MCROUTER_DIR/repo && \
                 ln -s $MCROUTER_DIR/install/bin/mcrouter /usr/local/bin/mcrouter
 
 ENV             DEBIAN_FRONTEND newt
