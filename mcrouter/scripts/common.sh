@@ -5,6 +5,15 @@
 
 set -ex
 
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+
 function die { printf "%s: %s\n" "$0" "$@"; exit 1; }
 
 [ -n "$1" ] || die "PKG_DIR missing"
