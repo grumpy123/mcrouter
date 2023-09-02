@@ -19,8 +19,11 @@ cd "$(dirname "$0")" || ( echo "cd fail"; exit 1 )
 REPO_BASE_DIR="$(cd ../../ && pwd)" || die "Couldn't determine repo top dir"
 export REPO_BASE_DIR
 
+echo "REPO_BASE_DIR: $REPO_BASE_DIR"
+
 export LDFLAGS="-ljemalloc $LDFLAGS"
 
+ls "order_$ORDER/"
 for script in $(ls "order_$ORDER/" | egrep '^[0-9]+_.*[^~]$' | sort -n); do
   "./order_$ORDER/$script" "$PKG_DIR" "$INSTALL_DIR" "$INSTALL_AUX_DIR" "$@"
 done
