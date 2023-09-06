@@ -9,13 +9,11 @@ source common.sh
 if [[ ! -d folly ]]; then
   git clone https://github.com/facebook/folly
   cd "$PKG_DIR/folly" || die "cd fail"
-  if [[ -f "$REPO_BASE_DIR/mcrouter/FOLLY_COMMIT" ]]; then
-    FOLLY_COMMIT="$(head -n 1 "$REPO_BASE_DIR/mcrouter/FOLLY_COMMIT")"
-    echo "FOLLY_COMMIT file found: using folly commit $FOLLY_COMMIT"
-    git checkout "$FOLLY_COMMIT"
-  else
-    echo "No FOLLY_COMMIT file, using folly HEAD=$(git rev-parse HEAD)"
-  fi
+
+  git checkout b35bea8f0784806e687e32f6914f4a504785ea06
+  git -c user.name=infra -c user.email=infra@reddit.com cherry-pick 9939b376180bba62251adcce0ac1d3ae73ac9480
+  git -c user.name=infra -c user.email=infra@reddit.com cherry-pick 7df2d7e5098119c1562422ac9571e70f032adb50
+  git -c user.name=infra -c user.email=infra@reddit.com cherry-pick 4d04d3d73c87d8d9b74fcd5b79a489ef9543d136
 fi
 
 if [ ! -d /usr/include/double-conversion ]; then

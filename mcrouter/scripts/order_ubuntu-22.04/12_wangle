@@ -9,13 +9,8 @@ source common.sh
 if [[ ! -d wangle ]]; then
   git clone https://github.com/facebook/wangle
   cd "$PKG_DIR/wangle" || die "cd fail"
-  if [[ -f "$REPO_BASE_DIR/mcrouter/WANGLE_COMMIT" ]]; then
-    WANGLE_COMMIT="$(head -n 1 "$REPO_BASE_DIR/mcrouter/WANGLE_COMMIT")"
-    echo "WANGLE_COMMIT file found: using wangle commit $WANGLE_COMMIT"
-    git checkout "$WANGLE_COMMIT"
-  else
-    echo "No WANGLE_COMMIT file, using wangle HEAD=$(git rev-parse HEAD)"
-  fi
+  git checkout 5ad3fbcf378ab50ef52b0bc9cd12d3e9d6fa1e82
+  git -c user.name=infra -c user.email=infra@reddit.com cherry-pick 30244f6b13c37f9077643f0a6d495121bf0cd4ee
 fi
 
 cd "$PKG_DIR/wangle/wangle/" || die "cd fail"

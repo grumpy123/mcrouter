@@ -9,13 +9,7 @@ source common.sh
 if [[ ! -d "$PKG_DIR/rsocket-cpp" ]]; then
   git clone https://github.com/rsocket/rsocket-cpp
   cd "$PKG_DIR/rsocket-cpp" || die "cd fail"
-  if [[ -f "$REPO_BASE_DIR/mcrouter/RSOCKET_COMMIT" ]]; then
-    RSOCKET_COMMIT="$(head -n 1 "$REPO_BASE_DIR/mcrouter/RSOCKET_COMMIT")"
-    echo "RSOCKET_COMMIT file found: using rsocket-cpp commit $RSOCKET_COMMIT"
-    git checkout "$RSOCKET_COMMIT"
-  else
-    echo "No RSOCKET_COMMIT file, using rsocket-cpp HEAD=$(git rev-parse HEAD)"
-  fi
+  git checkout a4443b528f03c2121956f0538285f0de152f35be
 fi
 
 mkdir -p "$PKG_DIR/rsocket-cpp/build"

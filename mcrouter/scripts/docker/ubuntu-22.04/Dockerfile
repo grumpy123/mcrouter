@@ -19,6 +19,9 @@ RUN apt-get remove -y wget
 RUN mkdir -p $MCROUTER_DIR/src
 COPY . $MCROUTER_DIR/src/
 
+# There is no python-is-python2 package on Jammy
+RUN ln -s /usr/bin/python2 /usr/local/bin/python
+
 RUN $MCROUTER_DIR/src/mcrouter/scripts/install_ubuntu_22.04.sh $MCROUTER_DIR
 RUN rm -rf $MCROUTER_DIR/src
 RUN ln -s $MCROUTER_DIR/install/bin/mcrouter /usr/local/bin/mcrouter
