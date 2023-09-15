@@ -40,6 +40,9 @@ sudo apt-get install -y \
     python2-dev \
     ragel
 
+sudo apt-get autoclean -y
+sudo apt-get autoremove -y
+
 cd "$(dirname "$0")" || ( echo "cd fail"; exit 1 )
 
 ./get_and_build_everything.sh ubuntu-22.04 "$@"
